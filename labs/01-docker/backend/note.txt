@@ -1,0 +1,10 @@
+> docker build -t nvtai24:spoved-backend:v1 .
+
+We have create a custom network to allow our containers to communicate with each other by name instead of IP address. 
+This is useful because the IP address of a container can change each time it is restarted, but the name will remain the same.
+
+> docker create network spoved
+
+> docker docker run -d --name mydb -p 5432:5432 -v pgdata:/var/lib/postgresql postgres --network spoved
+
+> docker run -d -p 8081:8080 -e ConnectionStrings__DefaultConnection="Host=mydb;Port=5432;Database=spoved;Username=postgres;Password=Ahihi.123" --network spoved nvtai24/spoved-backend:v2
